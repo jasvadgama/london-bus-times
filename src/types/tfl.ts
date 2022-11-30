@@ -23,9 +23,11 @@ export type TPredictionRaw = {
 
 export type TStopPointPairChild = {
   additionalProperties: TAdditionalProperty[];
+  children: TStopPointPairChild[];
   commonName: string;
   id: string;
   lines: TLine[];
+  modes: string[];
   stopLetter: string;
 };
 
@@ -36,4 +38,5 @@ export type TStopPointPair = {
   id: string;
   lineGroup: TLineGroup[];
   smsCode: string;
+  stopType: string;
 };

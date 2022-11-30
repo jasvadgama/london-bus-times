@@ -42,25 +42,23 @@ const SmsCode: NextPage<ISmsCodeProps> = ({
   if (statusCode !== 200) {
     return (
       <>
-        <h1>No results for {smsCode}</h1>
+        <h1>No results for &quot;{smsCode}&quot;</h1>
       </>
     );
   }
 
   return (
     <>
-      <h1>
-        Stop information for {commonName} ({smsCode})
-      </h1>
+      <h1>We found the following stops for &quot;{smsCode}&quot;</h1>
+
+      <p>Please select the correct stop for {commonName}:</p>
 
       <ul>
-        {stops?.map(({ commonName, id, lines, stopLetter, towards }) => (
+        {stops?.map(({ id, lines, stopLetter, towards }) => (
           <li key={id}>
             <Link href={`/stop/${id}`}>
-              <h2>
-                {commonName} ({stopLetter})
-              </h2>
-              {!!towards && <p>Towards {towards}.</p>}
+              <h2>Stop {stopLetter}</h2>
+              {!!towards && <p>Towards {towards}</p>}
               <p>Lines: {lines.map((line) => line).join(', ')} </p>
             </Link>
           </li>

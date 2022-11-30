@@ -23,7 +23,6 @@ export type TPrediction = {
 
 export type TStopPointPairInformation = TStopPoint & {
   stops?: {
-    commonName: string;
     id: string;
     lines: string[];
     stopLetter: string;

@@ -3,6 +3,30 @@ import { TStopPointPair } from '@app-types/tfl';
 
 const TOWARDS = 'Towards';
 
+function cleanStopInformation(
+  data: TStopPointPair,
+): TStopPointPairInformation['stops'] {
+  const { children, stopType } = data;
+  const shouldFilterChildren = stopType !== 'NaptanOnstreetBusCoachStopPair';
+  let childrenToClean = [...children];
+
+  if (shouldFilterChildren) {
+    childrenToClean =
+      children.filter(({ modes }) => !!modes.includes('bus'))[0]?.children ||
+      [];
+  }
+
+  return childrenToClean.map(
+    ({ additionalProperties, id, lines, stopLetter }) => ({
+      id,
+      lines: lines.map(({ name }) => name),
+      stopLetter,
+      towards:
+        additionalProperties.find(({ key }) => key === TOWARDS)?.value || '',
+    }),
+  );
+}
+
 const getStopPointPairBySmsCode = async (
   rawSmsCode: string,
 ): Promise<TStopPointPairInformation> => {
@@ -20,7 +44,7 @@ const getStopPointPairBySmsCode = async (
       },
     });
     const resJson: TStopPointPair = await res.json();
-    const { children, commonName, httpStatusCode, id } = resJson;
+    const { commonName, httpStatusCode, id } = resJson;
 
     if (httpStatusCode && httpStatusCode >= 400) {
       throw new Error('400');
@@ -30,16 +54,7 @@ const getStopPointPairBySmsCode = async (
       statusCode: 200,
       commonName,
       id,
-      stops: children.map(
-        ({ additionalProperties, commonName, id, lines, stopLetter }) => ({
-          commonName,
-          id,
-          lines: lines.map(({ name }) => name),
-          stopLetter,
-          towards: additionalProperties.find(({ key }) => key === TOWARDS)
-            ?.value,
-        }),
-      ),
+      stops: cleanStopInformation(resJson),
     };
   } catch (e: any) {
     console.log({ e });
