@@ -49,9 +49,12 @@ const SmsCode: NextPage<ISmsCodeProps> = ({
 
   return (
     <>
-      <h1>We found the following stops for &quot;{smsCode}&quot;</h1>
+      <h1>
+        We found the following information for &quot;{smsCode}&quot; (
+        {commonName})
+      </h1>
 
-      <p>Please select the correct stop for {commonName}:</p>
+      <p>Please select the correct stop:</p>
 
       <ul>
         {stops?.map(({ id, lines, stopLetter, towards }) => (
