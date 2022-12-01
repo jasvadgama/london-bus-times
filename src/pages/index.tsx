@@ -2,6 +2,9 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+import Button from '@components/ui/Button';
+import Input from '@components/ui/Input';
+
 const Home: NextPage = (): JSX.Element => {
   const router = useRouter();
   const handleSubmit = (e: React.SyntheticEvent) => {
@@ -30,20 +33,21 @@ const Home: NextPage = (): JSX.Element => {
 
       <form action="/sms-code" method="GET" onSubmit={handleSubmit}>
         <div className="form-row">
-          <label>
-            <span>Stop SMS code</span>
-            <input
-              id="smsCode"
-              name="smsCode"
-              placeholder="12345"
-              required
-              type="text"
-            />
-          </label>
+          <Input
+            id="smsCode"
+            name="smsCode"
+            placeholder="12345"
+            required
+            type="text"
+          >
+            Stop SMS code
+          </Input>
         </div>
 
         <div className="form-row form-row--actions">
-          <button type="submit">Find stop</button>
+          <Button type="submit" loadingCopy="Searching">
+            Find stop
+          </Button>
         </div>
       </form>
     </>

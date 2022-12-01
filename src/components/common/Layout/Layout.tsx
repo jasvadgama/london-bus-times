@@ -13,7 +13,8 @@ const Layout: FC<ILayout> = ({ children }): JSX.Element => {
       <Head>
         <title>London Bus Times</title>
       </Head>
-      <main className={ST.main}>{children}</main>;
+
+      <main className={ST.main}>{children}</main>
     </>
   );
 };
