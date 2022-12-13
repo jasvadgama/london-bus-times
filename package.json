@@ -10,7 +10,8 @@
     "tsc:repo": "tsc --noEmit",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "unused": "next-unused"
   },
   "dependencies": {
     "classnames": "^2.3.2",
@@ -39,6 +40,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-storybook": "^0.6.7",
     "husky": "^8.0.2",
+    "next-unused": "^0.0.6",
     "prettier": "^2.8.0",
     "sass": "^1.56.1",
     "storybook-addon-next": "^1.7.1",

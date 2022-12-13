@@ -21,13 +21,15 @@ export type TPrediction = {
   vehicleId: string;
 };
 
+export type TStopData = {
+  id: string;
+  lines: string[];
+  stopLetter: string;
+  towards?: string;
+};
+
 export type TStopPointPairInformation = TStopPoint & {
-  stops?: {
-    id: string;
-    lines: string[];
-    stopLetter: string;
-    towards?: string;
-  }[];
+  stops?: TStopData[];
 };
 
 export type TStopPointWithPredictions = TStopPoint & {

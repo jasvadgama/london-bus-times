@@ -49,7 +49,7 @@ const EstimatedArrivalTime: FC<{ expectedArrival: Duration }> = ({
 };
 
 const Stop: NextPage<IStopProps> = ({
-  stop,
+  // stop,
   stopPointPredictions,
 }): JSX.Element => {
   const { arrivalPredictions, commonName, stopLetter } = stopPointPredictions;

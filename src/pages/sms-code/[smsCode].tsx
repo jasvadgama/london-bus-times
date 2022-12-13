@@ -1,7 +1,7 @@
 import type { GetServerSideProps, NextPage } from 'next';
-import Link from 'next/link';
 
 import { TStopPointPairInformation } from '@app-types/stop-point';
+import ResultList from '@components/common/ResultList';
 import getStopPointPairBySmsCode from '@framework/tfl/api/getStopPointPairBySmsCode';
 
 interface ISmsCodeProps {
@@ -40,11 +40,7 @@ const SmsCode: NextPage<ISmsCodeProps> = ({
   const { commonName, statusCode, stops } = stopPointPairInformation;
 
   if (statusCode !== 200) {
-    return (
-      <>
-        <h1>No results for &quot;{smsCode}&quot;</h1>
-      </>
-    );
+    return <h1>No results for &quot;{smsCode}&quot;</h1>;
   }
 
   return (
@@ -56,17 +52,7 @@ const SmsCode: NextPage<ISmsCodeProps> = ({
 
       <p>Please select the correct stop:</p>
 
-      <ul>
-        {stops?.map(({ id, lines, stopLetter, towards }) => (
-          <li key={id}>
-            <Link href={`/stop/${id}`}>
-              <h2>Stop {stopLetter}</h2>
-              {!!towards && <p>Towards {towards}</p>}
-              <p>Lines: {lines.map((line) => line).join(', ')} </p>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <ResultList results={stops} />
     </>
   );
 };
