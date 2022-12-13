@@ -1,0 +1,37 @@
+.input {
+  display: block;
+  position: relative;
+  padding: var(--space-m) var(--space-2xs) var(--space-2xs);
+  border: 1px solid var(--color-copy-very-light);
+  border-width: 0 0 1px;
+  transition: border-color 0.2s ease-in-out;
+
+  &:focus-within {
+    border-color: var(--color-copy);
+
+    @media (prefers-color-scheme: dark) {
+      border-color: var(--color-white);
+    }
+  }
+}
+
+.label {
+  position: absolute;
+  top: var(--space-m);
+  left: var(--space-2xs);
+  transition: all 0.2s ease-in-out;
+
+  .input:focus-within &,
+  .control:not(:placeholder-shown) + & {
+    transform: translateY(calc(-100% - var(--space-2xs)));
+    left: 0;
+    font-size: 0.75rem;
+  }
+}
+
+.control {
+  width: 100%;
+  border: 0;
+  transition: border-color 0.2s ease-in-out;
+  outline: none;
+}

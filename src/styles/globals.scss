@@ -39,8 +39,63 @@
   /* Custom pairs */
 }
 
+:root {
+  // base
+  --color-black: #000;
+  --color-white: #fff;
+  // brand
+  --color-copy-hue: 0;
+  --color-copy-saturation: 0%;
+  --color-copy-lightness: 17%;
+  --color-copy: hsl(
+    var(--color-copy-hue),
+    var(--color-copy-saturation),
+    var(--color-copy-lightness)
+  );
+  --color-copy-very-light: hsl(
+    var(--color-copy-hue),
+    var(--color-copy-saturation),
+    80%
+  );
+  --color-secondary-hue: 205;
+  --color-secondary-saturation: 45%;
+  --color-secondary-lightness: 33%;
+  --color-secondary: hsl(
+    var(--color-secondary-hue),
+    var(--color-secondary-saturation),
+    var(--color-secondary-lightness)
+  );
+  --color-secondary-light: hsl(
+    var(--color-secondary-hue),
+    var(--color-secondary-saturation),
+    calc(var(--color-secondary-lightness) * 1.2)
+  );
+  --color-primary-hue: 80;
+  --color-primary-saturation: 85%;
+  --color-primary-lightness: 30%;
+  --color-primary: hsl(
+    var(--color-primary-hue),
+    var(--color-primary-saturation),
+    var(--color-primary-lightness)
+  );
+  --color-primary-light: hsl(
+    var(--color-primary-hue),
+    var(--color-primary-saturation),
+    calc(var(--color-primary-lightness) * 1.2)
+  );
+  --color-tertiary-hue: 205;
+  --color-tertiary-saturation: 49%;
+  --color-tertiary-lightness: 93%;
+  --color-tertiary: hsl(
+    var(--color-tertiary-hue),
+    var(--color-tertiary-saturation),
+    var(--color-tertiary-lightness)
+  );
+}
+
 html,
 body {
+  color: var(--color-copy);
   font-size: var(--step-0);
 }
 
@@ -50,7 +105,7 @@ h1 {
 
 a {
   border-bottom: 1px solid inherit;
-  color: inherit;
+  color: var(--color-secondary);
   text-decoration: none;
 }
 
@@ -58,8 +113,9 @@ a {
 //   html {
 //     color-scheme: dark;
 //   }
+
 //   body {
-//     color: white;
-//     background: black;
+//     color: var(--color-white);
+//     background: var(--color-copy);
 //   }
 // }

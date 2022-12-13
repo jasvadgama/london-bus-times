@@ -32,8 +32,8 @@ const Button: FC<IButton> = ({
   const classes = classNames(
     ST.button,
     {
-      [`${ST.button}--primary`]: level === 'primary',
-      [`${ST.button}--secondary`]: level === 'secondary',
+      [ST['button--primary']]: level === 'primary',
+      [ST['button--secondary']]: level === 'secondary',
     },
     className,
   );
@@ -43,7 +43,7 @@ const Button: FC<IButton> = ({
       {!!loadingCopy && !!loading ? loadingCopy : children}
 
       {!!loading && (
-        <span className="button-loader">
+        <span className={ST['button-loader']}>
           <LoadingDots />
         </span>
       )}
