@@ -16,7 +16,7 @@ const Home: NextPage = (): JSX.Element => {
     };
     const smsCode = target.smsCode.value;
 
-    router.push(`/sms-code/${smsCode}`);
+    router.push(`/search/${smsCode}`);
   };
 
   return (
@@ -32,7 +32,7 @@ const Home: NextPage = (): JSX.Element => {
         board.
       </p>
 
-      <form action="/sms-code" method="GET" onSubmit={handleSubmit}>
+      <form action="/search" method="GET" onSubmit={handleSubmit}>
         <FormRow>
           <Input
             autoComplete="off"

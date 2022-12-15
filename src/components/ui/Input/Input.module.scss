@@ -9,9 +9,9 @@
   &:focus-within {
     border-color: var(--color-copy);
 
-    @media (prefers-color-scheme: dark) {
-      border-color: var(--color-white);
-    }
+    // @media (prefers-color-scheme: dark) {
+    //   border-color: var(--color-copy);
+    // }
   }
 }
 
