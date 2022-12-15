@@ -9,7 +9,7 @@ interface IResultList {
   results?: TStopData[];
 }
 
-const ResultList: FC<IResultList> = ({ results }) => {
+const ResultList: FC<IResultList> = ({ results }): JSX.Element | null => {
   if (!results || results.length < 1) {
     return null;
   }

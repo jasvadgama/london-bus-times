@@ -1,0 +1,25 @@
+.deptarture-board {
+  margin: 0 0 var(--space-l);
+  width: 100%;
+  max-width: 450px;
+  border: 0;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: var(--space-2xs);
+    text-align: left;
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+
+  thead tr {
+    background: var(--color-tertiary);
+  }
+
+  tbody tr:nth-child(even) {
+    background: hsl(var(--color-copy-hue), var(--color-copy-saturation), 95%);
+  }
+}

@@ -28,7 +28,7 @@ const Button: FC<IButton> = ({
   loading,
   loadingCopy,
   ...rest
-}) => {
+}): JSX.Element => {
   const classes = classNames(
     ST.button,
     {

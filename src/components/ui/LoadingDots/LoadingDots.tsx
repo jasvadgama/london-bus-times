@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import ST from './LoadingDots.module.scss';
 
-const LoadingDots: FC = () => {
+const LoadingDots: FC = (): JSX.Element => {
   console.log({ ST });
 
   return (

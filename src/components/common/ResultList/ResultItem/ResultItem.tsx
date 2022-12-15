@@ -9,7 +9,7 @@ interface IResultItem {
   item: TStopData;
 }
 
-const ResultItem: FC<IResultItem> = ({ item }) => {
+const ResultItem: FC<IResultItem> = ({ item }): JSX.Element => {
   const { id, lines, stopLetter, towards } = item;
 
   return (

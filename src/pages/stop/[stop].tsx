@@ -1,8 +1,9 @@
-import { Duration } from 'date-fns';
 import { GetServerSideProps, NextPage } from 'next';
-import { FC } from 'react';
+import Link from 'next/link';
 
 import { TStopPointWithPredictions } from '@app-types/stop-point';
+import DepartureBoard from '@components/common/DepartureBoard';
+import Button from '@components/ui/Button';
 import getArrivalPredictionsByStopPointId from '@framework/tfl/utils/getArrivalPredictionsByStopPointId';
 
 interface IStopProps {
@@ -32,22 +33,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   };
 };
 
-const EstimatedArrivalTime: FC<{ expectedArrival: Duration }> = ({
-  expectedArrival,
-}): JSX.Element => {
-  const { minutes } = expectedArrival;
-
-  if (minutes === 0) {
-    return <>Due</>;
-  }
-
-  if (minutes === 1) {
-    return <>1 min</>;
-  }
-
-  return <>{minutes} mins</>;
-};
-
 const Stop: NextPage<IStopProps> = ({
   // stop,
   stopPointPredictions,
@@ -57,19 +42,17 @@ const Stop: NextPage<IStopProps> = ({
   return (
     <>
       <h1>
-        Stop information for {commonName} ({stopLetter})
+        {commonName} ({stopLetter})
       </h1>
 
-      <ul>
-        {arrivalPredictions.map(
-          ({ destinationName, expectedArrival, lineId, lineName }, index) => (
-            <li key={`${lineId}_${index}`}>
-              {lineName} to {destinationName} -{' '}
-              <EstimatedArrivalTime expectedArrival={expectedArrival} />
-            </li>
-          ),
-        )}
-      </ul>
+      <h2>Departure board</h2>
+      <DepartureBoard arrivalPredictions={arrivalPredictions} />
+
+      <p>
+        <Button Component={Link} href="/">
+          Search again
+        </Button>
+      </p>
     </>
   );
 };
