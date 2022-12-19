@@ -5,48 +5,56 @@ import ResultList from '@components/common/ResultList';
 import getStopPointPairBySmsCode from '@framework/tfl/api/getStopPointPairBySmsCode';
 
 interface ISmsCodeProps {
-  smsCode: string;
+  searchTerm: string;
   stopPointPairInformation: TStopPointPairInformation;
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { smsCode } = params || {};
+  const { searchTerm } = params || {};
 
-  if (!smsCode) {
+  if (!searchTerm) {
     return {
       notFound: true,
     };
   }
 
-  const sanitisedSmsCode: string = Array.isArray(smsCode)
-    ? smsCode[0]
-    : smsCode;
-  const stopPointPairInformation = await getStopPointPairBySmsCode(
-    sanitisedSmsCode,
-  );
+  const sanitisedSearchTerm: string = Array.isArray(searchTerm)
+    ? searchTerm[0].trim()
+    : searchTerm.trim();
+  const smsCodeRegex = /\d{5}/gi;
+  const isSmsCode =
+    sanitisedSearchTerm.length === 5 && smsCodeRegex.test(sanitisedSearchTerm);
+  let stopPointPairInformation;
+
+  if (!!isSmsCode) {
+    stopPointPairInformation = await getStopPointPairBySmsCode(
+      sanitisedSearchTerm,
+    );
+  } else {
+  }
 
   return {
     props: {
-      smsCode,
+      searchTerm: sanitisedSearchTerm,
       stopPointPairInformation,
     },
   };
 };
 
 const SmsCode: NextPage<ISmsCodeProps> = ({
-  smsCode,
+  searchTerm,
   stopPointPairInformation,
 }): JSX.Element => {
-  const { commonName, statusCode, stops } = stopPointPairInformation;
+  const { commonName, statusCode, stops } = stopPointPairInformation || {};
 
   if (statusCode !== 200) {
-    return <h1>No results for &quot;{smsCode}&quot;</h1>;
+    return <h1>No results for &quot;{searchTerm}&quot;</h1>;
   }
 
   return (
     <>
       <h1>
-        We found the following information for &quot;{smsCode}&quot; (
+        We found the following information for &quot;{searchTerm}&quot; (
         {commonName})
       </h1>
 
