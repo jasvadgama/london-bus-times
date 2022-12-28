@@ -1,15 +1,15 @@
 import { Duration } from 'date-fns';
 
-import { TLineGroup } from './tfl';
+import { TErrorResponse } from './errors';
+import { TLine } from './tfl';
 
-export type TStopPoint = {
-  statusCode: number;
-  commonName?: string;
+export type TStopPoint = TErrorResponse & {
   id?: string;
-  lineGroup?: TLineGroup[];
-  message?: string;
+  lines?: TLine[];
+  name?: string;
   smsCode?: string;
   stopLetter?: string;
+  towards?: string;
 };
 
 export type TPrediction = {
@@ -23,15 +23,12 @@ export type TPrediction = {
 
 export type TStopData = {
   id: string;
-  lines: string[];
+  lines: TLine[];
+  name: string;
   stopLetter: string;
   towards?: string;
 };
 
-export type TStopPointPairInformation = TStopPoint & {
-  stops?: TStopData[];
-};
-
 export type TStopPointWithPredictions = TStopPoint & {
-  arrivalPredictions: TPrediction[];
+  arrivalPredictions?: TPrediction[];
 };

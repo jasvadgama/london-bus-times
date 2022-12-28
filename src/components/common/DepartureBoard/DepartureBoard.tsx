@@ -38,7 +38,7 @@ const DepartureBoard: FC<IDepartureBoard> = ({
         </tr>
       </thead>
       <tbody>
-        {arrivalPredictions.map(
+        {arrivalPredictions?.map(
           ({ destinationName, expectedArrival, lineId, lineName }, index) => (
             <tr key={`${lineId}_${index}`}>
               <td>{lineName}</td>

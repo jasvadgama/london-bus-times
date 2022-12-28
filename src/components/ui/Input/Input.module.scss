@@ -13,6 +13,10 @@
     //   border-color: var(--color-copy);
     // }
   }
+
+  form:invalid & {
+    border-color: red;
+  }
 }
 
 .label {

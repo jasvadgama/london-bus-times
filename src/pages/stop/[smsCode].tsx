@@ -4,45 +4,42 @@ import Link from 'next/link';
 import { TStopPointWithPredictions } from '@app-types/stop-point';
 import DepartureBoard from '@components/common/DepartureBoard';
 import Button from '@components/ui/Button';
-import getArrivalPredictionsByStopPointId from '@framework/tfl/utils/getArrivalPredictionsByStopPointId';
+import getArrivalPredictionsByStopPointSmsCode from '@framework/tfl/utils/getArrivalPredictionsByStopPointSmsCode';
 
 interface IStopProps {
-  stop: string;
+  smsCode: string;
   stopPointPredictions: TStopPointWithPredictions;
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { stop } = params || {};
+  const { smsCode } = params || {};
 
-  if (!stop) {
+  if (!smsCode) {
     return {
       notFound: true,
     };
   }
 
-  const sanitisedStop: string = Array.isArray(stop) ? stop[0] : stop;
-  const stopPointPredictions = await getArrivalPredictionsByStopPointId(
+  const sanitisedStop: string = Array.isArray(smsCode) ? smsCode[0] : smsCode;
+  const stopPointPredictions = await getArrivalPredictionsByStopPointSmsCode(
     sanitisedStop,
   );
 
   return {
     props: {
-      stop,
+      smsCode,
       stopPointPredictions,
     },
   };
 };
 
-const Stop: NextPage<IStopProps> = ({
-  // stop,
-  stopPointPredictions,
-}): JSX.Element => {
-  const { arrivalPredictions, commonName, stopLetter } = stopPointPredictions;
+const Stop: NextPage<IStopProps> = ({ stopPointPredictions }): JSX.Element => {
+  const { arrivalPredictions, name, stopLetter } = stopPointPredictions;
 
   return (
     <>
       <h1>
-        {commonName} ({stopLetter})
+        {name} ({stopLetter})
       </h1>
 
       <h2>Departure board</h2>

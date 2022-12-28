@@ -30,4 +30,8 @@
       background: var(--color-secondary-light);
     }
   }
+
+  &:disabled {
+    opacity: 0.75;
+  }
 }
