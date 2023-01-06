@@ -1,3 +1,7 @@
+export interface ISearchFormProps {
+  initialValue?: string;
+}
+
 export type TSearchFormAction =
   | { type: 'ERROR'; error: string }
   | { type: 'FETCH' }

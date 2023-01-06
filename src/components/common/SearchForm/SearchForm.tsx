@@ -2,13 +2,14 @@ import { useRouter } from 'next/router';
 import { FC, useReducer } from 'react';
 
 import Button from '@components/ui/Button';
+import ErrorMessage from '@components/ui/ErrorMessage';
 import FormRow from '@components/ui/FormRow';
 import Input from '@components/ui/Input';
 
-import { TSearchFormState } from './SearchForm.types';
+import { ISearchFormProps, TSearchFormState } from './SearchForm.types';
 import { reducer } from './SearchForm.utils';
 
-const SearchForm: FC = (): JSX.Element => {
+const SearchForm: FC<ISearchFormProps> = ({ initialValue }): JSX.Element => {
   const INITIAL_STATE: TSearchFormState = {
     error: null,
     isLoading: false,
@@ -47,6 +48,7 @@ const SearchForm: FC = (): JSX.Element => {
           name="searchTerm"
           pattern="\d{5}"
           type="text"
+          defaultValue={initialValue || ''}
         >
           SMS code
         </Input>
@@ -54,7 +56,7 @@ const SearchForm: FC = (): JSX.Element => {
 
       {!!error && (
         <FormRow>
-          <p>{error}</p>
+          <ErrorMessage>{error}</ErrorMessage>
         </FormRow>
       )}
 

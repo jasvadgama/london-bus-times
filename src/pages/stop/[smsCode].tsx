@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { TStopPointWithPredictions } from '@app-types/stop-point';
 import DepartureBoard from '@components/common/DepartureBoard';
+import SearchForm from '@components/common/SearchForm';
 import Button from '@components/ui/Button';
 import getArrivalPredictionsByStopPointSmsCode from '@framework/tfl/utils/getArrivalPredictionsByStopPointSmsCode';
 
@@ -33,8 +34,26 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   };
 };
 
-const Stop: NextPage<IStopProps> = ({ stopPointPredictions }): JSX.Element => {
-  const { arrivalPredictions, name, stopLetter } = stopPointPredictions;
+const Stop: NextPage<IStopProps> = ({
+  smsCode,
+  stopPointPredictions,
+}): JSX.Element => {
+  const { arrivalPredictions, name, statusCode, stopLetter } =
+    stopPointPredictions;
+
+  if (statusCode >= 400) {
+    return (
+      <>
+        <h1>No stops found</h1>
+
+        <p>We couldn&apos;t find a stop with the SMS code {smsCode}.</p>
+
+        <p>Please check the code and try searching again.</p>
+
+        <SearchForm initialValue={smsCode} />
+      </>
+    );
+  }
 
   return (
     <>
