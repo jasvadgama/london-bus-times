@@ -1,11 +1,14 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
+import useSWR from 'swr';
 
 import { TStopPointWithPredictions } from '@app-types/stop-point';
 import DepartureBoard from '@components/common/DepartureBoard';
 import SearchForm from '@components/common/SearchForm';
 import Button from '@components/ui/Button';
 import getArrivalPredictionsByStopPointSmsCode from '@framework/tfl/utils/getArrivalPredictionsByStopPointSmsCode';
+
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 interface IStopProps {
   smsCode: string;
@@ -15,15 +18,8 @@ interface IStopProps {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { smsCode } = params || {};
 
-  if (!smsCode) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const sanitisedStop: string = Array.isArray(smsCode) ? smsCode[0] : smsCode;
   const stopPointPredictions = await getArrivalPredictionsByStopPointSmsCode(
-    sanitisedStop,
+    smsCode,
   );
 
   return {
@@ -38,8 +34,12 @@ const Stop: NextPage<IStopProps> = ({
   smsCode,
   stopPointPredictions,
 }): JSX.Element => {
-  const { arrivalPredictions, name, statusCode, stopLetter } =
-    stopPointPredictions;
+  const { data } = useSWR(`/api/get-stop-by-sms-code/${smsCode}`, fetcher, {
+    fallbackData: stopPointPredictions,
+    // refreshInterval: 0,
+    refreshInterval: 30000,
+  });
+  const { arrivalPredictions, name, statusCode, stopLetter } = data;
 
   if (statusCode >= 400) {
     return (

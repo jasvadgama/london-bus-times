@@ -46,10 +46,20 @@ function formatPredictions(predictionsRaw: TPredictionRaw[]): TPrediction[] {
 }
 
 const getArrivalPredictionsByStopPointSmsCode = async (
-  smsCode: string,
+  smsCode: string | string[] | undefined,
 ): Promise<TStopPointWithPredictions> => {
   try {
-    const stopPoint = await getStopPoint(smsCode);
+    if (!smsCode) {
+      return {
+        statusCode: 400,
+        message: 'No SMS code provided',
+      };
+    }
+
+    const sanitisedSmsCode: string = Array.isArray(smsCode)
+      ? smsCode[0]
+      : smsCode;
+    const stopPoint = await getStopPoint(sanitisedSmsCode);
 
     if (stopPoint.statusCode >= 400) {
       throw new Error('404');
