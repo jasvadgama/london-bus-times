@@ -1,4 +1,4 @@
-import { Duration } from 'date-fns';
+import { Duration, format } from 'date-fns';
 import { FC } from 'react';
 
 import { TStopPointWithPredictions } from '@app-types/stop-point';
@@ -7,6 +7,7 @@ import ST from './DepartureBoard.module.scss';
 
 interface IDepartureBoard {
   arrivalPredictions: TStopPointWithPredictions['arrivalPredictions'];
+  lastUpdated: number;
 }
 
 const EstimatedArrivalTime: FC<{ expectedArrival: Duration }> = ({
@@ -27,32 +28,39 @@ const EstimatedArrivalTime: FC<{ expectedArrival: Duration }> = ({
 
 const DepartureBoard: FC<IDepartureBoard> = ({
   arrivalPredictions,
+  lastUpdated,
 }): JSX.Element => {
   return (
-    <table className={ST['deptarture-board']}>
-      <thead>
-        <tr>
-          <th>Route</th>
-          <th>Destination</th>
-          <th>Due in</th>
-        </tr>
-      </thead>
-      <tbody>
-        {arrivalPredictions?.map(
-          ({ destinationName, expectedArrival, lineId, lineName }, index) => (
-            <tr key={`${lineId}_${index}`}>
-              <td>{lineName}</td>
-              <td className={ST['deptarture-board-destination']}>
-                {destinationName}
-              </td>
-              <td>
-                <EstimatedArrivalTime expectedArrival={expectedArrival} />
-              </td>
-            </tr>
-          ),
-        )}
-      </tbody>
-    </table>
+    <div className={ST['deptarture-board']}>
+      <table summary="Arrival times at the stop">
+        <thead>
+          <tr>
+            <th>Route</th>
+            <th>Destination</th>
+            <th>Due in</th>
+          </tr>
+        </thead>
+        <tbody>
+          {arrivalPredictions?.map(
+            ({ destinationName, expectedArrival, lineId, lineName }, index) => (
+              <tr key={`${lineId}_${index}`}>
+                <td>{lineName}</td>
+                <td className={ST['deptarture-board-destination']}>
+                  {destinationName}
+                </td>
+                <td>
+                  <EstimatedArrivalTime expectedArrival={expectedArrival} />
+                </td>
+              </tr>
+            ),
+          )}
+        </tbody>
+      </table>
+
+      <p>
+        <em>Last updated: {format(lastUpdated, 'Pp')}</em>
+      </p>
+    </div>
   );
 };
 

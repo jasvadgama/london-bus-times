@@ -1,5 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
+import { useState } from 'react';
 import useSWR from 'swr';
 
 import { TStopPointWithPredictions } from '@app-types/stop-point';
@@ -34,10 +35,16 @@ const Stop: NextPage<IStopProps> = ({
   smsCode,
   stopPointPredictions,
 }): JSX.Element => {
+  const hasError = stopPointPredictions.statusCode >= 400;
+  const [lastUpdated, setLastpdated] = useState<number>(Date.now());
   const { data } = useSWR(`/api/get-stop-by-sms-code/${smsCode}`, fetcher, {
     fallbackData: stopPointPredictions,
-    // refreshInterval: 0,
-    refreshInterval: 30000,
+    onSuccess: () => setLastpdated(Date.now()),
+    refreshInterval: hasError ? 0 : 10000,
+    revalidateIfStale: !hasError,
+    revalidateOnFocus: !hasError,
+    revalidateOnMount: false,
+    revalidateOnReconnect: !hasError,
   });
   const { arrivalPredictions, name, statusCode, stopLetter } = data;
 
@@ -62,7 +69,10 @@ const Stop: NextPage<IStopProps> = ({
       </h1>
 
       <h2>Departure board</h2>
-      <DepartureBoard arrivalPredictions={arrivalPredictions} />
+      <DepartureBoard
+        arrivalPredictions={arrivalPredictions}
+        lastUpdated={lastUpdated}
+      />
 
       <p>
         <Button Component={Link} href="/">
