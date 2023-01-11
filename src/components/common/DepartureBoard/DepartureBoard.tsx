@@ -31,7 +31,7 @@ const DepartureBoard: FC<IDepartureBoard> = ({
   lastUpdated,
 }): JSX.Element => {
   return (
-    <div className={ST['deptarture-board']}>
+    <div className={ST['departure-board']}>
       <table summary="Arrival times at the stop">
         <thead>
           <tr>
@@ -45,7 +45,7 @@ const DepartureBoard: FC<IDepartureBoard> = ({
             ({ destinationName, expectedArrival, lineId, lineName }, index) => (
               <tr key={`${lineId}_${index}`}>
                 <td>{lineName}</td>
-                <td className={ST['deptarture-board-destination']}>
+                <td className={ST['departure-board-destination']}>
                   {destinationName}
                 </td>
                 <td>
@@ -58,7 +58,7 @@ const DepartureBoard: FC<IDepartureBoard> = ({
       </table>
 
       <p>
-        <em>Last updated: {format(lastUpdated, 'Pp')}</em>
+        <em>Last updated: {format(lastUpdated, "pp 'on' dd/MM/yyyy")}</em>
       </p>
     </div>
   );

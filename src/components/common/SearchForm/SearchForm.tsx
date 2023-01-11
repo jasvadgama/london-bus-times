@@ -30,10 +30,7 @@ const SearchForm: FC<ISearchFormProps> = ({ initialValue }): JSX.Element => {
 
     if (searchTerm.length === 5 && searchTermRegex.test(searchTerm)) {
       // valid code, redirect to stop page
-      router.push(`/stop/${searchTerm}`);
-
-      // return dispatch({ type: 'SUCCESS' });
-      return;
+      return router.push(`/stop/${searchTerm}`);
     }
 
     // invalid code entered

@@ -40,7 +40,7 @@ const Stop: NextPage<IStopProps> = ({
   const { data } = useSWR(`/api/get-stop-by-sms-code/${smsCode}`, fetcher, {
     fallbackData: stopPointPredictions,
     onSuccess: () => setLastpdated(Date.now()),
-    refreshInterval: hasError ? 0 : 10000,
+    refreshInterval: hasError ? 0 : 30000,
     revalidateIfStale: !hasError,
     revalidateOnFocus: !hasError,
     revalidateOnMount: false,
