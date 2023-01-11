@@ -32,7 +32,8 @@ const SearchForm: FC<ISearchFormProps> = ({ initialValue }): JSX.Element => {
       // valid code, redirect to stop page
       router.push(`/stop/${searchTerm}`);
 
-      return dispatch({ type: 'SUCCESS' });
+      // return dispatch({ type: 'SUCCESS' });
+      return;
     }
 
     // invalid code entered
