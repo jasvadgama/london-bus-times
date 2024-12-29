@@ -15,15 +15,15 @@ const EstimatedArrivalTime: FC<{ expectedArrival: Duration }> = ({
 }) => {
   const { minutes } = expectedArrival;
 
-  if (minutes === 0) {
+  if (!minutes) {
     return <>Due</>;
   }
 
-  if (minutes === 1) {
-    return <>1 min</>;
-  }
-
-  return <>{minutes} mins</>;
+  return (
+    <>
+      {minutes} min{minutes !== 1 && 's'}
+    </>
+  );
 };
 
 const DepartureBoard: FC<IDepartureBoard> = ({

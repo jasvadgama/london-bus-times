@@ -8,9 +8,8 @@ export default async function handler(
 ) {
   const { smsCode } = req.query;
 
-  const stopPointPredictions = await getArrivalPredictionsByStopPointSmsCode(
-    smsCode,
-  );
+  const stopPointPredictions =
+    await getArrivalPredictionsByStopPointSmsCode(smsCode);
 
   res.status(200).json(stopPointPredictions);
 }
