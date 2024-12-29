@@ -9,7 +9,7 @@ import Input from '@components/ui/Input';
 import { ISearchFormProps, TSearchFormState } from './SearchForm.types';
 import { reducer } from './SearchForm.utils';
 
-const SearchForm: FC<ISearchFormProps> = ({ initialValue }): JSX.Element => {
+const SearchForm: FC<ISearchFormProps> = ({ initialValue }) => {
   const INITIAL_STATE: TSearchFormState = {
     error: null,
     isLoading: false,

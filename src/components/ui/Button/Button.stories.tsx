@@ -1,10 +1,10 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import Button from './';
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+type Story = StoryObj<typeof meta>;
+
+const meta: Meta<typeof Button> = {
   title: 'Components/UI/Button',
   component: Button,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
@@ -36,7 +36,7 @@ export default {
     Component: {
       description: 'Type of control to display',
       control: {
-        type: null,
+        type: undefined,
       },
     },
     href: {
@@ -58,15 +58,13 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof Button>;
+};
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+export default meta;
 
-export const Basic = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Basic.args = {
-  children: 'Find stop',
-  level: 'primary',
-  loadingCopy: 'Searching',
+export const Default: Story = {
+  args: {
+    children: 'Click me!',
+    level: 'primary',
+  },
 };

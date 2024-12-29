@@ -1,8 +1,5 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-yarn tsc:repo
-yarn lint
 yarn prettier --write "src/**/*.{ts,tsx,js,scss}"
+yarn lint
+yarn tsc
 #yarn test
 yarn unused

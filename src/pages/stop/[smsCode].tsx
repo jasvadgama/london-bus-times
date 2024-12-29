@@ -19,9 +19,8 @@ interface IStopProps {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { smsCode } = params || {};
 
-  const stopPointPredictions = await getArrivalPredictionsByStopPointSmsCode(
-    smsCode,
-  );
+  const stopPointPredictions =
+    await getArrivalPredictionsByStopPointSmsCode(smsCode);
 
   return {
     props: {
@@ -31,15 +30,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   };
 };
 
-const Stop: NextPage<IStopProps> = ({
-  smsCode,
-  stopPointPredictions,
-}): JSX.Element => {
+const Stop: NextPage<IStopProps> = ({ smsCode, stopPointPredictions }) => {
   const hasError = stopPointPredictions.statusCode >= 400;
-  const [lastUpdated, setLastpdated] = useState<number>(Date.now());
+  const [lastUpdated, setLastUpdated] = useState<number>(Date.now());
   const { data } = useSWR(`/api/get-stop-by-sms-code/${smsCode}`, fetcher, {
     fallbackData: stopPointPredictions,
-    onSuccess: () => setLastpdated(Date.now()),
+    onSuccess: () => setLastUpdated(Date.now()),
     refreshInterval: hasError ? 0 : 30000,
     revalidateIfStale: !hasError,
     revalidateOnFocus: !hasError,
