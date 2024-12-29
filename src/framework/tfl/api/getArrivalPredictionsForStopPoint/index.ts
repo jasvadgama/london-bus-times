@@ -24,7 +24,7 @@ const getArrivalPredictionsForStopPoint = async (
     }
 
     return resJson;
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.log({ e });
 
     switch (true) {

@@ -1,10 +1,10 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import Input from './';
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+type Story = StoryObj<typeof meta>;
+
+const meta: Meta<typeof Input> = {
   title: 'Components/UI/Input',
   component: Input,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
@@ -19,13 +19,10 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof Input>;
+};
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Input> = (args) => <Input {...args} />;
+export default meta;
 
-export const Basic = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Basic.args = {
-  children: 'Stop SMS code',
+export const Default: Story = {
+  args: {},
 };

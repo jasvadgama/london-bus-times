@@ -1,13 +1,13 @@
 import { FC } from 'react';
 
-import ST from './LoadingDots.module.scss';
+import styles from './LoadingDots.module.scss';
 
-const LoadingDots: FC = (): JSX.Element => {
+const LoadingDots: FC = () => {
   return (
-    <span className={ST['loading-dots']}>
-      <span className={ST['loading-dots-dot']} />
-      <span className={ST['loading-dots-dot']} />
-      <span className={ST['loading-dots-dot']} />
+    <span className={styles['loading-dots']}>
+      <span className={styles['loading-dots-dot']} />
+      <span className={styles['loading-dots-dot']} />
+      <span className={styles['loading-dots-dot']} />
     </span>
   );
 };

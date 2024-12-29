@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 import SearchForm from '@components/common/SearchForm';
 
-const Home: NextPage = (): JSX.Element => {
+const Home: NextPage = () => {
   return (
     <>
       <Head>

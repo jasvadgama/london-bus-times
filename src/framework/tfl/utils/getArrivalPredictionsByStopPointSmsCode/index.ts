@@ -75,7 +75,7 @@ const getArrivalPredictionsByStopPointSmsCode = async (
       ...stopPoint,
       arrivalPredictions,
     };
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.log({ e });
 
     switch (true) {

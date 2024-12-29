@@ -46,7 +46,7 @@ const getStopPoint = async (rawSmsCode: string): Promise<TStopPoint> => {
       message: 'ok',
       ...cleanStopInformation(matches),
     };
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.log({ e });
 
     switch (true) {

@@ -1,19 +1,14 @@
-import classNames from 'classnames';
-import {
-  ButtonHTMLAttributes,
-  FC,
-  JSXElementConstructor,
-  ReactNode,
-} from 'react';
+import clsx from 'clsx';
+import { ButtonHTMLAttributes, ElementType, FC, ReactNode } from 'react';
 
-import LoadingDots from '../LoadingDots';
+import LoadingDots from '@components/ui/LoadingDots';
 
-import ST from './Button.module.scss';
+import styles from './Button.module.scss';
 
 interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   className?: string;
-  Component?: string | JSXElementConstructor<any>;
+  Component?: string | ElementType;
   href?: string;
   level?: 'primary' | 'secondary';
   loading?: boolean;
@@ -28,12 +23,12 @@ const Button: FC<IButton> = ({
   loading,
   loadingCopy,
   ...rest
-}): JSX.Element => {
-  const classes = classNames(
-    ST.button,
+}) => {
+  const classes = clsx(
+    styles.button,
     {
-      [ST['button--primary']]: level === 'primary',
-      [ST['button--secondary']]: level === 'secondary',
+      [styles['button--primary']]: level === 'primary',
+      [styles['button--secondary']]: level === 'secondary',
     },
     className,
   );
@@ -43,7 +38,7 @@ const Button: FC<IButton> = ({
       {!!loadingCopy && !!loading ? loadingCopy : children}
 
       {!!loading && (
-        <span className={ST['button-loader']}>
+        <span className={styles['button-loader']}>
           <LoadingDots />
         </span>
       )}

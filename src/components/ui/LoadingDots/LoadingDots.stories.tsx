@@ -1,19 +1,20 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import LoadingDots from './';
 
-export default {
+type Story = StoryObj<typeof meta>;
+
+const meta: Meta<typeof LoadingDots> = {
   title: 'Components/UI/Loading Dots',
   component: LoadingDots,
   parameters: {
     // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
     // layout: 'fullscreen',
   },
-} as ComponentMeta<typeof LoadingDots>;
+};
 
-const Template: ComponentStory<typeof LoadingDots> = (args) => (
-  <LoadingDots {...args} />
-);
+export default meta;
 
-export const Basic = Template.bind({});
+export const Default: Story = {
+  args: {},
+};
