@@ -1,5 +1,4 @@
-yarn prettier --write "src/**/*.{ts,tsx,js,scss}"
-yarn lint
 yarn tsc
+yarn lint-staged
 #yarn test
 yarn unused
