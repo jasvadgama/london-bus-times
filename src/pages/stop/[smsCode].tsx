@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
 const Stop: NextPage<IStopProps> = ({ smsCode, stopPointPredictions }) => {
   const hasError = stopPointPredictions.statusCode >= 400;
-  const [lastUpdated, setLastUpdated] = useState<number>(Date.now());
+  const [lastUpdated, setLastUpdated] = useState<number>(() => Date.now());
   const { data } = useSWR(`/api/get-stop-by-sms-code/${smsCode}`, fetcher, {
     fallbackData: stopPointPredictions,
     onSuccess: () => setLastUpdated(Date.now()),
